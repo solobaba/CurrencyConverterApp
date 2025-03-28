@@ -6,7 +6,7 @@ import com.squareup.moshi.JsonClass
 data class LatestCurrencyResponse(
     val base: String,
     val date: String,
-    val rates: Rates,
+    val rates: Map<String, Double>,
     val success: Boolean,
     val timestamp: Int
 )

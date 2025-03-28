@@ -2,7 +2,7 @@ package com.solobaba.currencyconverter.domain.response
 
 data class DomainCurrencySymbolsResponse(
     val success: Boolean,
-    val symbols: DomainSymbols
+    val symbols: Map<String, String>
 )
 
 data class DomainSymbols(

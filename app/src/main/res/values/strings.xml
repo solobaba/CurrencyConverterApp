@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">CurrencyConverter</string>
+    <string name="menu">Menu</string>
+    <string name="sign_up">Sign up</string>
+    <string name="currency">Currency</string>
+    <string name="converter">Converter</string>
+    <string name="calculator">Calculator.</string>
+    <string name="convert">Convert</string>
+    <string name="past_30_days">Past 30 Days</string>
+    <string name="past_90_days">Past 90 Days</string>
+    <string name="exchange_rate">%1$s = %2$s</string>
+    <string name="rate_alerts">Get rate alerts straight to your email inbox</string>
+    <string name="mid_market_rate">Mid-market exchange rate at 13:38 UTC</string>
+    <string name="information">Information</string>
 </resources>

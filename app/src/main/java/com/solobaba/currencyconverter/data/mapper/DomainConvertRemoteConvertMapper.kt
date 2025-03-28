@@ -11,8 +11,8 @@ import com.solobaba.currencyconverter.domain.response.DomainQueryData
 
 class DomainConvertRemoteConvertMapper {
     fun mapDomainConvertCurrencyToRemoteConvertCurrency(
-        convertCurrencyResponse: ConvertCurrencyResponse?): DomainConvertCurrencyResponse? {
-        if (convertCurrencyResponse == null) return null
+        convertCurrencyResponse: ConvertCurrencyResponse): DomainConvertCurrencyResponse {
+        //if (convertCurrencyResponse == null) return null
         return with(convertCurrencyResponse) {
             DomainConvertCurrencyResponse(
                 success = success,

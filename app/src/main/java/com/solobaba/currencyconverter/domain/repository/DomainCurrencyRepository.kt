@@ -5,6 +5,7 @@ import com.solobaba.currencyconverter.domain.response.DomainCurrencySymbolsRespo
 import com.solobaba.currencyconverter.domain.response.DomainCurrencyTimesResponse
 import com.solobaba.currencyconverter.domain.response.DomainLatestCurrencyResponse
 import com.solobaba.currencyconverter.utils.ApiResult
+import com.solobaba.currencyconverter.utils.ApiServiceResult
 import kotlinx.coroutines.flow.Flow
 
 interface DomainCurrencyRepository {
@@ -15,7 +16,7 @@ interface DomainCurrencyRepository {
         from: String,
         to: String,
         amount: Double
-    ): Flow<ApiResult<DomainConvertCurrencyResponse>>
+    ): Flow<ApiServiceResult<DomainConvertCurrencyResponse>>
 
     suspend fun getSymbols(apiKey: String): Flow<ApiResult<DomainCurrencySymbolsResponse>>
 

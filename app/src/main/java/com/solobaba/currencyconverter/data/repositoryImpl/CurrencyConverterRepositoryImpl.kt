@@ -11,6 +11,7 @@ import com.solobaba.currencyconverter.domain.response.DomainCurrencySymbolsRespo
 import com.solobaba.currencyconverter.domain.response.DomainCurrencyTimesResponse
 import com.solobaba.currencyconverter.domain.response.DomainLatestCurrencyResponse
 import com.solobaba.currencyconverter.utils.ApiResult
+import com.solobaba.currencyconverter.utils.ApiServiceResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
@@ -65,34 +66,34 @@ class CurrencyConverterRepositoryImpl @Inject constructor(
         from: String,
         to: String,
         amount: Double
-    ): Flow<ApiResult<DomainConvertCurrencyResponse>> {
+    ): Flow<ApiServiceResult<DomainConvertCurrencyResponse>> {
         return flow {
-            emit(ApiResult.Loading(true))
-
             val convertCurrencyResponse = try {
                 currencyConverterService.convertCurrency(apiKey, from, to, amount)
             } catch (e: IOException) {
                 e.printStackTrace()
-                emit(ApiResult.Error("Error converting currency data"))
+                emit(ApiServiceResult.Error("Error converting currency data"))
                 return@flow
             } catch (e: HttpException) {
                 e.printStackTrace()
-                emit(ApiResult.Error(message = "Error converting currency data"))
+                emit(ApiServiceResult.Error(message = "Error converting currency data"))
                 return@flow
             } catch (e: Exception) {
                 e.printStackTrace()
-                emit(ApiResult.Error(message = "Error converting currency data"))
+                emit(ApiServiceResult.Error(message = "Error converting currency data"))
                 return@flow
             }
 
             emit(
-                ApiResult.Success(
+                ApiServiceResult.Success(
                     domainConvertRemoteConvertMapper.mapDomainConvertCurrencyToRemoteConvertCurrency(
                         convertCurrencyResponse
                     )
                 )
             )
-            emit(ApiResult.Loading(false))
+            emit(ApiServiceResult.Error(
+                convertCurrencyResponse.error?.info ?: "Error converting currency data"
+            ))
         }
     }
 

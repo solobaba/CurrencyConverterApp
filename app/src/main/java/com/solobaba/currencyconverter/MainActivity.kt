@@ -1,47 +1,60 @@
 package com.solobaba.currencyconverter
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
+import androidx.navigation.compose.rememberNavController
+import com.solobaba.currencyconverter.presentation.navigation.CurrencyConverterNavigation
 import com.solobaba.currencyconverter.ui.theme.CurrencyConverterTheme
+import com.solobaba.currencyconverter.utils.Extensions.loadMapOfCurrencySymbolToFlag
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        //enableEdgeToEdge()
         setContent {
+            val navController = rememberNavController()
+            val snackBarHostState = remember { SnackbarHostState() }
             CurrencyConverterTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = Color.White,
+                    snackbarHost = {
+                        SnackbarHost(hostState = snackBarHostState) { data ->
+                            Snackbar(
+                                snackbarData = data,
+                                containerColor = Color.Red, //Custom background
+                                contentColor = Color.White  //Custom text color
+                            )
+                        }
+                    }
+                ) { innerPadding ->
+                    Box(
+                        content = {
+                            CurrencyConverterNavigation(
+                                navController = navController,
+                                innerPadding = innerPadding,
+                                snackBarHostState = snackBarHostState,
+                                currencySymbolsFlag = loadMapOfCurrencySymbolToFlag(assets)
+                            )
+                        }
                     )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CurrencyConverterTheme {
-        Greeting("Android")
     }
 }

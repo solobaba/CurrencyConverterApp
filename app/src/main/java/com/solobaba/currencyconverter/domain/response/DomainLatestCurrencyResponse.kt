@@ -3,7 +3,7 @@ package com.solobaba.currencyconverter.domain.response
 data class DomainLatestCurrencyResponse(
     val base: String,
     val date: String,
-    val rates: DomainRates,
+    val rates: Map<String, Double>,
     val success: Boolean,
     val timestamp: Int
 )
