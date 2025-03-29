@@ -33,3 +33,8 @@ A currency converter application built with Jetpack Compose.
     * https://data.fixer.io/api/`
 * The **ViewModel** handles the UI logic
 * The **Composables** render the UI
+
+## Screenshots
+<p align="center">
+  <img src="screenshots/CurrencyConverterScreen.jpg" alt="Currency Converter/Calculator screen" width="40%" hspace="15" />
+</p>
