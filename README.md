@@ -36,5 +36,5 @@ A currency converter application built with Jetpack Compose.
 
 ## Screenshots
 <p align="center">
-  <img src="screenshots/CurrencyConverterScreen.jpg" alt="Currency Converter/Calculator screen" width="40%" hspace="15" />
+  <img src="screenshot/currencyCalculatorScreen.png" alt="Currency Converter/Calculator screen" width="40%" hspace="15" />
 </p>
