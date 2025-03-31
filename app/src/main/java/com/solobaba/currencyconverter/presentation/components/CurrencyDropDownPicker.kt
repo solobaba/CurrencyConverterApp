@@ -51,7 +51,6 @@ fun CurrencyDropDownPicker(
     Box {
         OutlinedTextField(
             modifier = modifier
-                .background(Color.White)
                 .border(
                     width = 0.5.dp,
                     color = Color.LightGray,
@@ -96,7 +95,8 @@ fun CurrencyDropDownPicker(
                 unfocusedIndicatorColor = Color.Transparent,
                 disabledIndicatorColor = Color.Transparent,
                 cursorColor = Color.LightGray,
-                textColor = Color.DarkGray
+                textColor = Color.DarkGray,
+                backgroundColor = Color.White
             ),
             keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.Characters)
         )

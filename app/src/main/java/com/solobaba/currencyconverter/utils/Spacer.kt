@@ -2,6 +2,7 @@ package com.solobaba.currencyconverter.utils
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -29,6 +30,11 @@ fun SpacerVertical20Dp() {
 @Composable
 fun SpacerVertical24Dp() {
     Spacer(Modifier.height(24.dp))
+}
+
+@Composable
+fun SpacerHorizontal24Dp() {
+    Spacer(Modifier.width(24.dp))
 }
 
 @Composable

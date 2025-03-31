@@ -171,11 +171,6 @@ fun CurrencyConverterScreen(
                     onSymbolSelected = { newText -> baseCurrencySymbol = newText }
                 )
             }
-//            CurrencySelection(
-//                fromCurrency = fromCurrency,
-//                toCurrency = toCurrency,
-//                currencySymbols = symbolsCurrency?.symbols ?: emptyMap()
-//            )
             SpacerVertical24Dp()
             CurrencyConvertButton(viewmodel)
             SpacerVertical16Dp()

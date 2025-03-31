@@ -40,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.solobaba.currencyconverter.R
+import com.solobaba.currencyconverter.utils.SpacerHorizontal24Dp
 import com.solobaba.currencyconverter.utils.SpacerVertical20Dp
 import com.solobaba.currencyconverter.utils.SpacerVertical24Dp
 import com.solobaba.currencyconverter.utils.SpacerVertical4Dp
@@ -87,7 +88,7 @@ fun TimePeriodSelector() {
             text = stringResource(id = R.string.past_30_days),
             isSelected = true
         )
-        SpacerVertical24Dp()
+        SpacerHorizontal24Dp()
         TimePeriodOption(
             text = stringResource(id = R.string.past_90_days),
             isSelected = false
