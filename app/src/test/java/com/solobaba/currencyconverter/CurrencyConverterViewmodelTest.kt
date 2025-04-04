@@ -38,11 +38,12 @@ class CurrencyConverterViewmodelTest {
     @Test
     fun `getCurrencySymbols should update symbolsCurrencyResponse`() = runTest {
         val fakeCurrencySymbols = mapOf("USD" to "United States Dollar", "EUR" to "Euro")
+        val fakeCurrencySymbolsResponse = DomainCurrencySymbolsResponse(symbols = fakeCurrencySymbols)
         coEvery { currencyRepository.getSymbols(Constants.FIXER_API_KEY) } returns flowOf(
-            ApiResult.Success(DomainCurrencySymbolsResponse(symbols = fakeCurrencySymbols)))
+            ApiResult.Success(fakeCurrencySymbolsResponse))
 
         println("Mocked symbols copy = ${domainCurrencySymbolsResponse.copy(symbols = fakeCurrencySymbols)}")
-        println("Mocked symbols = ${DomainCurrencySymbolsResponse(symbols = fakeCurrencySymbols)}")
+        println("Mocked symbols = $fakeCurrencySymbolsResponse")
 
         currencyConverterViewmodel.getCurrencySymbols()
 
@@ -50,7 +51,7 @@ class CurrencyConverterViewmodelTest {
         advanceUntilIdle()
 
         val actualSymbols = currencyConverterViewmodel.symbolsCurrencyResponse.value?.symbolsCurrencyResponse?.symbols
-        println("Actual symbols: ${currencyConverterViewmodel.symbolsCurrencyResponse.value?.symbolsCurrencyResponse?.symbols}")
+        println("Actual symbols: $actualSymbols")
         assertEquals(fakeCurrencySymbols, actualSymbols)
     }
 
