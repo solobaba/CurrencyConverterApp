@@ -5,7 +5,7 @@ import com.squareup.moshi.JsonClass
 @JsonClass(generateAdapter = true)
 data class CurrencySymbolsResponse(
     val success: Boolean,
-    val symbols: Map<String, String>
+    val symbols: Map<String, String> = emptyMap()
 )
 
 @JsonClass(generateAdapter = true)

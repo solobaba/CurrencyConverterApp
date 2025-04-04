@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -37,7 +38,6 @@ import com.solobaba.currencyconverter.presentation.components.CurrencyConvertBut
 import com.solobaba.currencyconverter.presentation.components.CurrencyDropDownPicker
 import com.solobaba.currencyconverter.presentation.components.CurrencyExchangeRateInfo
 import com.solobaba.currencyconverter.presentation.components.CurrencyInputAmount
-import com.solobaba.currencyconverter.presentation.components.CurrencySelection
 import com.solobaba.currencyconverter.presentation.components.TitleText
 import com.solobaba.currencyconverter.presentation.components.TopAppBar
 import com.solobaba.currencyconverter.presentation.state.SymbolsCurrencyState
@@ -46,6 +46,7 @@ import com.solobaba.currencyconverter.utils.ApiServiceResult
 import com.solobaba.currencyconverter.utils.SpacerVertical16Dp
 import com.solobaba.currencyconverter.utils.SpacerVertical24Dp
 import com.solobaba.currencyconverter.utils.SpacerVertical32Dp
+import com.solobaba.currencyconverter.utils.SpacerVertical8Dp
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -64,7 +65,7 @@ fun CurrencyConverterScreen(
     val timeSeriesRates = viewmodel.timeSeriesRatesResponse.collectAsState().value
     val amount = viewmodel.amount.collectAsState().value
     val fromCurrency = viewmodel.fromCurrency.collectAsState().value
-    val toCurrency = viewmodel.toCurrency.collectAsState().value
+    var toCurrency = viewmodel.toCurrency.collectAsState().value
     val isConverting = viewmodel.isConverting.collectAsState().value
     val loading = viewmodel.loading.collectAsState().value
 
@@ -85,22 +86,37 @@ fun CurrencyConverterScreen(
         ) {
             TopAppBar()
             SpacerVertical32Dp()
-            TitleText(stringResource(R.string.currency))
-            TitleText(stringResource(R.string.calculator))
+            TitleText(
+                text = stringResource(R.string.currency),
+                color = Color(0xFF2D69DD)
+            )
+            Row(modifier = Modifier.fillMaxWidth()) {
+                TitleText(
+                    text = stringResource(R.string.calculator),
+                    color = Color(0xFF2D69DD)
+                )
+                TitleText(
+                    text = ".",
+                    color = Color(0xFF4CD080)
+                )
+            }
             SpacerVertical24Dp()
             CurrencyInputAmount(
                 amount = amount,
-                currency = fromCurrency,
+                currency = baseCurrencySymbol,
                 symbol = symbolsCurrency?.symbols?.get(fromCurrency) ?: "",
                 onAmountChange = { viewmodel.updateAmount(it) },
-                isReadOnly = false
+                isReadOnly = false,
+                enabled = true,
             )
+            SpacerVertical8Dp()
             CurrencyInputAmount(
-                amount = (convertCurrency as? ApiServiceResult.Success)?.data?.result?.toString() ?: "0",
-                currency = toCurrency,
+                amount = (convertCurrency as? ApiServiceResult.Success)?.data?.result?.toString() ?: "",
+                currency = targetCurrencySymbol,
                 symbol = "",
                 onAmountChange = { viewmodel.updateAmount(it) },
-                isReadOnly = true
+                isReadOnly = false,
+                enabled = false,
             )
 
             if (isConverting) {
@@ -125,10 +141,11 @@ fun CurrencyConverterScreen(
                         val result = (convertCurrency as? ApiServiceResult.Success<DomainConvertCurrencyResponse>)?.data
                         CurrencyInputAmount(
                             amount = result?.result?.toString() ?: "0",
-                            currency = toCurrency,
-                            symbol = symbolsCurrency?.symbols?.get(toCurrency) ?: "",
+                            currency = baseCurrencySymbol,
+                            symbol = symbolsCurrency?.symbols?.get(baseCurrencySymbol) ?: "",
                             onAmountChange = { },
-                            isReadOnly = true
+                            isReadOnly = true,
+                            enabled = true
                         )
                     }
                     null -> {}
@@ -149,7 +166,7 @@ fun CurrencyConverterScreen(
                     modifier = Modifier,
                     readOnly = false,
                     enabled = true,
-                    defaultSymbol = "EUR",
+                    defaultSymbol = stringResource(R.string.eur),
                     mapOfCurrencySymbolsToFlag = currencySymbolsFlag,
                     onSymbolSelected = { newText -> baseCurrencySymbol = newText }
                 )
@@ -166,13 +183,13 @@ fun CurrencyConverterScreen(
                     modifier = Modifier,
                     readOnly = false,
                     enabled = true,
-                    defaultSymbol = "PLN",
+                    defaultSymbol = stringResource(R.string.pln),
                     mapOfCurrencySymbolsToFlag = currencySymbolsFlag,
-                    onSymbolSelected = { newText -> baseCurrencySymbol = newText }
+                    onSymbolSelected = { newText -> targetCurrencySymbol = newText }
                 )
             }
             SpacerVertical24Dp()
-            CurrencyConvertButton(viewmodel)
+            CurrencyConvertButton(viewmodel, baseCurrencySymbol, targetCurrencySymbol)
             SpacerVertical16Dp()
             CurrencyExchangeRateInfo()
         }

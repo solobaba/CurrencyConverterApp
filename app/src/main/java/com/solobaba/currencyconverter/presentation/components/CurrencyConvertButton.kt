@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -20,10 +19,12 @@ import com.solobaba.currencyconverter.presentation.viewmodel.CurrencyConverterVi
 
 @Composable
 fun CurrencyConvertButton(
-    viewModel: CurrencyConverterViewmodel
+    viewModel: CurrencyConverterViewmodel,
+    baseCurrencySymbol: String,
+    targetCurrencySymbol: String
 ) {
     Button(
-        onClick = { viewModel.convertCurrency() },
+        onClick = { viewModel.convertCurrency(baseCurrencySymbol, targetCurrencySymbol) },
         modifier = Modifier
             .fillMaxWidth()
             .height(56.dp),

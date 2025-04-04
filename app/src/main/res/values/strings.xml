@@ -4,7 +4,7 @@
     <string name="sign_up">Sign up</string>
     <string name="currency">Currency</string>
     <string name="converter">Converter</string>
-    <string name="calculator">Calculator.</string>
+    <string name="calculator">Calculator</string>
     <string name="convert">Convert</string>
     <string name="past_30_days">Past 30 Days</string>
     <string name="past_90_days">Past 90 Days</string>
@@ -12,4 +12,6 @@
     <string name="rate_alerts">Get rate alerts straight to your email inbox</string>
     <string name="mid_market_rate">Mid-market exchange rate at 13:38 UTC</string>
     <string name="information">Information</string>
+    <string name="pln">PLN</string>
+    <string name="eur">EUR</string>
 </resources>

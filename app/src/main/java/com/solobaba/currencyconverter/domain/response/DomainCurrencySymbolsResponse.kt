@@ -1,8 +1,8 @@
 package com.solobaba.currencyconverter.domain.response
 
 data class DomainCurrencySymbolsResponse(
-    val success: Boolean,
-    val symbols: Map<String, String>
+    val success: Boolean? = false,
+    val symbols: Map<String, String> = emptyMap()
 )
 
 data class DomainSymbols(

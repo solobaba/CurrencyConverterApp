@@ -10,10 +10,10 @@ import androidx.compose.ui.unit.sp
 import com.solobaba.currencyconverter.R
 
 @Composable
-fun TitleText(text: String) {
+fun TitleText(text: String, color: Color) {
     Text(
         text = text,
-        color = Color(0xFF2D69DD),
+        color = color,
         fontSize = 36.sp,
         fontWeight = FontWeight.Bold,
         fontFamily = FontFamily(Font(R.font.montserrat_bold)),

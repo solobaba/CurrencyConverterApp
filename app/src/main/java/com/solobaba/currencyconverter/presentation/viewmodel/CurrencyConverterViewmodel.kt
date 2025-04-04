@@ -101,7 +101,7 @@ class CurrencyConverterViewmodel @Inject constructor(
         }
     }
 
-    fun convertCurrency() {
+    fun convertCurrency(baseCurrency: String, targetCurrency: String) {
         viewModelScope.launch {
             _isConverting.value = true
             _convertCurrencyResult.value = ApiServiceResult.Loading
@@ -110,8 +110,8 @@ class CurrencyConverterViewmodel @Inject constructor(
 
             domainCurrencyRepository.convertCurrency (
                 Constants.FIXER_API_KEY,
-                _fromCurrency.value,
-                _toCurrency.value,
+                baseCurrency,
+                targetCurrency,
                 amountValue
                 ).collectLatest { result ->
                 _convertCurrencyResult.value = result
@@ -120,7 +120,7 @@ class CurrencyConverterViewmodel @Inject constructor(
         }
     }
 
-    private fun getCurrencySymbols() {
+    fun getCurrencySymbols() {
         viewModelScope.launch {
             _symbolsCurrencyResponse.update {
                 it.copy(isLoading = true)
